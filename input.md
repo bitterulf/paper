@@ -2,7 +2,7 @@
 
 # header {.style-me}
 
-![alt text][logo] {data-component="comp1", data-content="a,b,c"}
+![alt text][logo] {component="my-comp1" color="red"}
 
 right
 
