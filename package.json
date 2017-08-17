@@ -1,0 +1,26 @@
+{
+  "name": "paper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitterulf/paper.git"
+  },
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/bitterulf/paper/issues"
+  },
+  "homepage": "https://github.com/bitterulf/paper#readme",
+  "dependencies": {
+    "js-beautify": "^1.6.14",
+    "markdown-it": "^8.3.2",
+    "markdown-it-attrs": "^1.0.0",
+    "markdown-it-container": "^2.0.0"
+  }
+}
