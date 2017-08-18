@@ -2,9 +2,16 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const _ = require('lodash');
 
-const input = fs.readFileSync('./input.md').toString();
-const base = fs.readFileSync('./base.html').toString();
+const fm = require('front-matter');
 
+const rawInput = fm(fs.readFileSync('./input.md').toString());
+
+const input = rawInput.body;
+const attributes = rawInput.attributes;
+
+console.log(attributes);
+
+const base = fs.readFileSync('./base.html').toString();
 
 const markdownItAttrs = require('markdown-it-attrs');
 const md = require('markdown-it')();
@@ -35,7 +42,7 @@ md.use(markdownItAttrs);
 
 const result = md.render(input);
 
-const $ = cheerio.load(base.replace('!CONTENT!', result));
+const $ = cheerio.load(result);
 
 $('p').each(function(i, elem) {
     const attribs = this.attribs;
@@ -58,4 +65,4 @@ $('p').each(function(i, elem) {
 
 $.html();
 
-fs.writeFileSync('./output.html', beautify_html(base.replace('!CONTENT!', $.html())));
+fs.writeFileSync('./output.html', beautify_html(base.replace('!CONTENT!', $.html()).replace('!TITLE!', attributes.title)));

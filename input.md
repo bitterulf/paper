@@ -1,3 +1,9 @@
+---
+title: title
+tags: [a, b, c]
+config: {a: a, b: b, c: c}
+---
+
 ::: area right
 
 # header {.style-me}
