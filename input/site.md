@@ -1,5 +1,5 @@
 ---
-key: menu
+meta: data
 ---
 
 # menu
@@ -21,4 +21,6 @@ key: menu
 | 1 | 2 | 3 |
 
 ---
+
+this is the footer
 
