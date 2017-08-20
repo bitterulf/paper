@@ -55,6 +55,22 @@
                     }
                 }
             });
+
+            xtag.register('zoomable-images', {
+                lifecycle: {
+                    created: function(){
+                        const markup = xtag.queryChildren(this, 'ul li img').map(function(img) {
+                            return img.outerHTML;
+                        }).join('');
+
+                        this.innerHTML = markup;
+                    },
+                    inserted: function() {
+
+                    }
+                }
+            });
+
         </script>
     </head>
     <body>
