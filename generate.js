@@ -20,13 +20,14 @@ const wrappElements = function($page, list, tag) {
     });
 };
 
-const ignoreList = ['menu', 'template', 'address', 'links'];
+const ignoreList = ['home', 'menu', 'template', 'address', 'links'];
 
 load('./input', function(err, pages) {
     const template = pages.template.body;
     const menu = pages.menu.body;
     const address = pages.address.body;
     const linksPage = pages.links.body;
+    const homePage = pages.home.body;
 
     let links = [];
 
@@ -113,7 +114,7 @@ load('./input', function(err, pages) {
     });
 
     const $ = cheerio.load(template);
-    $('#content').html('home');
+    $('#content').html(homePage);
     $('#menu').html($menu.html());
     $('#address').html(address);
     $('#links').html(linksPage);
