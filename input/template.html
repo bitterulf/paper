@@ -46,8 +46,50 @@
                 "left right";
             }
         </style>
+        <script src="//unpkg.com/mithril/mithril.js"></script>
         <script  src="https://rawgit.com/x-tag/core/master/dist/x-tag-core.min.js"></script>
         <script>
+            const createGallery = function(imageNodes) {
+                const state = {
+                    selectedImage: null
+                };
+
+                return {
+                    oninit: function(vnode) {
+                    },
+                    view: function(vnode) {
+                        if (state.selectedImage) {
+                            const node = imageNodes[state.selectedImage-1];
+
+                            return m('div', [
+                                m('img', {
+                                    src: node.src,
+                                    alt: node.alt,
+                                    title: node.title,
+                                    width: '100%',
+                                    onclick: function() {
+                                        state.selectedImage = null;
+                                    }
+                                })
+                            ]);
+                        }
+
+                        return m('div', [
+                            imageNodes.map(function(node, index) {
+                                return m('img', {
+                                    src: node.src,
+                                    alt: node.alt,
+                                    title: node.title,
+                                    onclick: function() {
+                                        state.selectedImage = index+1;
+                                    }
+                                });
+                            })
+                        ])
+                    }
+                };
+            };
+
             xtag.register('my-component2', {
                 lifecycle: {
                     created: function(){
@@ -59,18 +101,15 @@
             xtag.register('zoomable-images', {
                 lifecycle: {
                     created: function(){
-                        const markup = xtag.queryChildren(this, 'ul li img').map(function(img) {
-                            return img.outerHTML;
-                        }).join('');
+                        const images = xtag.queryChildren(this, 'ul li img');
 
-                        this.innerHTML = markup;
+                        m.mount(this, createGallery(images));
                     },
                     inserted: function() {
 
                     }
                 }
             });
-
         </script>
     </head>
     <body>
