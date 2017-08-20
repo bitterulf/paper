@@ -24,6 +24,30 @@ load('./input', function(err, pages) {
     const template = pages.template.body;
     const menu = pages.menu.body;
 
+    let links = [];
+
+    _.keys(pages).forEach(function(key) {
+        if (key != 'menu' && key != 'template') {
+            const page = pages[key];
+
+            links.push({
+                title: page.title,
+                href: slug(key)+'.html'
+            });
+        }
+    });
+
+    const $menu = cheerio.load(menu);
+
+    const firstMenu = $menu('ul').first();
+
+    firstMenu.html(
+        firstMenu.html()
+        +'<li>'
+        +links.map(function(link) { return '<a href="'+link.href+'">'+link.title+'</a>'}).join('')
+        +'</li>'
+    );
+
     _.keys(pages).forEach(function(key) {
         if (key != 'menu' && key != 'template') {
 
@@ -66,7 +90,7 @@ load('./input', function(err, pages) {
                 }
 
                 $('#content').html(part);
-                $('#menu').html(menu);
+                $('#menu').html($menu.html());
 
                 const filename = index == 0 ? slug(key)+'.html' : slug(key)+'-'+index+'.html';
 
