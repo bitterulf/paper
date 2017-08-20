@@ -37,9 +37,14 @@ load('./input', function(err, pages) {
 
             links.push({
                 title: page.title,
-                href: slug(key)+'.html'
+                href: slug(key)+'.html',
+                sorting: page.attributes.sorting || 0
             });
         }
+    });
+
+    links.sort(function(a, b) {
+        return b.sorting - a.sorting;
     });
 
     const $menu = cheerio.load(menu);
