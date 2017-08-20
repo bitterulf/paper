@@ -4,6 +4,6 @@ meta: data
 
 # menu
 
-* [a][1]
+* [home][1]
 
-[1]: http://slashdot.org
+[1]: /

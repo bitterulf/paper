@@ -98,4 +98,9 @@ load('./input', function(err, pages) {
             });
         }
     });
+
+    const $ = cheerio.load(template);
+    $('#content').html('home');
+    $('#menu').html($menu.html());
+    fs.writeFileSync('./output/index.html', beautify_html($.html()));
 });
