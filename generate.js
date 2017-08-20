@@ -20,14 +20,18 @@ const wrappElements = function($page, list, tag) {
     });
 };
 
+const ignoreList = ['menu', 'template', 'address', 'links'];
+
 load('./input', function(err, pages) {
     const template = pages.template.body;
     const menu = pages.menu.body;
+    const address = pages.address.body;
+    const linksPage = pages.links.body;
 
     let links = [];
 
     _.keys(pages).forEach(function(key) {
-        if (key != 'menu' && key != 'template') {
+        if (ignoreList.indexOf(key) < 0) {
             const page = pages[key];
 
             links.push({
@@ -49,7 +53,7 @@ load('./input', function(err, pages) {
     );
 
     _.keys(pages).forEach(function(key) {
-        if (key != 'menu' && key != 'template') {
+        if (ignoreList.indexOf(key) < 0) {
 
             const page = pages[key];
 
@@ -98,6 +102,8 @@ load('./input', function(err, pages) {
 
                 $('#content').html(part);
                 $('#menu').html($menu.html());
+                $('#address').html(address);
+                $('#links').html(linksPage);
 
                 const filename = index == 0 ? slug(key)+'.html' : slug(key)+'-'+index+'.html';
 
@@ -109,5 +115,8 @@ load('./input', function(err, pages) {
     const $ = cheerio.load(template);
     $('#content').html('home');
     $('#menu').html($menu.html());
+    $('#address').html(address);
+    $('#links').html(linksPage);
+
     fs.writeFileSync('./output/index.html', beautify_html($.html()));
 });
