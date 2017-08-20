@@ -86,7 +86,7 @@ load('./input', function(err, pages) {
 
                     pagination = '<ul>' + pagination + '</ul>';
 
-                    part += pagination;
+                    part = '<h1>' + key + ' - ' + index + '</h1>'+ part + pagination;
                 }
 
                 $('#content').html(part);
