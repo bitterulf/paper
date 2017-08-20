@@ -26,7 +26,6 @@ load('./input', function(err, pages) {
 
     _.keys(pages).forEach(function(key) {
         if (key != 'menu' && key != 'template') {
-            const $ = cheerio.load(template);
 
             const page = pages[key];
 
@@ -42,10 +41,37 @@ load('./input', function(err, pages) {
                 wrappElements($page, page.attributes.table, 'table');
             }
 
-            $('#content').html($page.html());
-            $('#menu').html(menu);
+            const parts = $page.html().split('<hr>');
 
-            fs.writeFileSync('./output/'+slug(key)+'.html', beautify_html($.html()));
+            parts.forEach(function(part, index) {
+                const $ = cheerio.load(template);
+
+                let pagination = '';
+
+                if (index == 0) {
+                    _.times(parts.length-1, function(index) {
+                        pagination+= '<li><a href="'+ slug(key)+'-'+(index+1)+'.html' +'">'+(index+1)+'</li></a>';
+                    });
+
+                    pagination = '<ul>' + pagination + '</ul>';
+
+                    part += pagination;
+                }
+                else {
+                    pagination+= '<li><a href="'+ slug(key)+'.html' +'">back</li></a>';
+
+                    pagination = '<ul>' + pagination + '</ul>';
+
+                    part += pagination;
+                }
+
+                $('#content').html(part);
+                $('#menu').html(menu);
+
+                const filename = index == 0 ? slug(key)+'.html' : slug(key)+'-'+index+'.html';
+
+                fs.writeFileSync('./output/'+filename, beautify_html($.html()));
+            });
         }
     });
 });

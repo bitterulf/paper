@@ -8,12 +8,18 @@ ol: [my-component3]
 
 with some text
 
+---
+
 * and
 * some
 * stuff
 
+---
+
 1. first
 2. second
+
+---
 
 | name | gender |
 | ---- | ------ |
