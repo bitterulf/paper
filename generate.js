@@ -74,7 +74,7 @@ load('./input', function(err, pages) {
 
                 if (index == 0) {
                     _.times(parts.length-1, function(index) {
-                        pagination+= '<li><a href="'+ slug(key)+'-'+(index+1)+'.html' +'">'+(index+1)+'</li></a>';
+                        pagination+= '<li><a href="'+ slug(key)+'-'+(index+1)+'.html' +'">part'+(index+1)+'</li></a>';
                     });
 
                     pagination = '<ul>' + pagination + '</ul>';
@@ -82,7 +82,14 @@ load('./input', function(err, pages) {
                     part += pagination;
                 }
                 else {
-                    pagination+= '<li><a href="'+ slug(key)+'.html' +'">back</li></a>';
+                    pagination+= '<li><a href="'+ slug(key)+'.html' +'">overview</li></a>';
+
+                    if (index > 1) {
+                        pagination+= '<li><a href="'+ slug(key)+'-'+ (index - 1) +'.html' +'">prev</li></a>';
+                    }
+                    if (index < parts.length - 1) {
+                        pagination+= '<li><a href="'+ slug(key)+'-'+ (index + 1) +'.html' +'">next</li></a>';
+                    }
 
                     pagination = '<ul>' + pagination + '</ul>';
 
