@@ -11,6 +11,16 @@
                 "left right";
             }
         </style>
+        <script  src="https://rawgit.com/x-tag/core/master/dist/x-tag-core.min.js"></script>
+        <script>
+            xtag.register('my-component2', {
+                lifecycle: {
+                    created: function(){
+                        console.log(this);
+                    }
+                }
+            });
+        </script>
     </head>
     <body>
         <div id="menu"></div>
